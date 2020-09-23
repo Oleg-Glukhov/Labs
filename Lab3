@@ -3,6 +3,7 @@
 #include <cmath>
 #include <vector>
 #include <string>
+#include <algorithm>
 
 int main()
 {
@@ -99,8 +100,33 @@ int main()
     std::string stringfour;
     std::cout << "Enter string: ";
     std::getline(std::cin, stringfour);
-    std::cout << stringfour;
-    
+    std::cout << stringfour << std::endl;
+    std::cout << "String lenght: " << stringfour.size() << std::endl;
+    std::cout << static_cast<float>(std::count(stringfour.begin(), stringfour.end(), 't')) / stringfour.size() << std::endl;
+    unsigned long l1;
+    unsigned long l2;
+    std::cout << "Enter l1 value: ";
+    std::cin >> l1;
+    std::cout << "Enter l2 value: ";
+    std::cin >> l2;
+    if (l1 < l2)
+        std::cout << stringfour.substr(l1 - 1, l2 - l1 + 1) << std::endl;
+    else if (l1 == l2)
+        std::cout << stringfour[l1 - 1] << std::endl;
+    else
+        std::cout << stringfour.substr(l2 - 1, l1 - l2 + 1) << std::endl;
+    std::string mainstring("Can you can a can as a canner can can a can?");
+    std::string replacement;
+    std::cout << "Sentence: Can you can a can as a canner can can a can?" << std::endl;
+    std::cout << "Enter word to replace word (can): ";
+    std::cin.ignore(32767, '\n');
+    std::getline(std::cin, replacement);
+    mainstring.replace(40, 3, replacement);
+    mainstring.replace(34, 3, replacement);
+    mainstring.replace(30, 3, replacement);
+    mainstring.replace(14, 3, replacement);
+    mainstring.replace(8, 3, replacement);
+    std::cout << mainstring << std::endl;
 
     return 0;
 }
