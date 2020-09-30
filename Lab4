@@ -1,0 +1,76 @@
+#include <iostream>
+#include <vector>
+#include <ctime>
+#include <cmath>
+#include <algorithm>
+
+void bubblesort(std::vector<int>& vec, int m)
+{
+    int i, j, temp;
+    for (i = 0; i < m - 1; i++)
+        for (j = 0; j < (m - 1) - i; j++)
+            if (vec[j] > vec[j + 1])
+            {
+                temp = vec[j];
+                vec[j] = vec[j + 1];
+                vec[j + 1] = temp;
+            }
+}
+
+void selectionsort(std::vector<int>& vec, int m)
+{
+    int i, j, min;
+    for (i = 0; i < m - 1; i++)
+    {
+        min = vec[i];
+        for (j = i + 1; j < m; j++)
+            if (min > vec[j])
+            {
+                min = vec[j];
+                vec[j] = vec[i];
+                vec[i] = min;
+            }
+    }
+}
+
+void quicksort(std::vector<int>& vec, int m)
+{
+    int i, j, temp, edge, n;
+    for (n = 0; n < m; n++)
+    {
+        edge = n + 1;
+        for (i = n + 1; i < m; i++)
+            if (vec[i] < vec[n])
+            {
+                temp = vec[i];
+                vec[i] = vec[edge];
+                vec[edge] = temp;
+                edge++;
+            }
+        for (i = n; i < edge - 1; i++)
+        {
+            temp = vec[i];
+            vec[i] = vec[i + 1];
+            vec[i + 1] = temp;
+        }
+    }
+}
+
+int main()
+{
+    std::srand(std::time(nullptr));
+    int m;
+    int i;
+    m = rand() % 6 + 30;
+    std::vector<int> vec;
+    for (i = 0; i < m; i++)
+        vec.push_back(rand() % 201 - 100);
+    for (i = 0; i < m; i++)
+        std::cout << vec[i] << " ";
+    std::cout << std::endl;
+    quicksort(vec, m);
+    for (i = 0; i < m; i++)
+        std::cout << vec[i] << " ";
+
+    return 0;
+}
