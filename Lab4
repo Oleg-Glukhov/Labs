@@ -1,7 +1,6 @@
 #include <iostream>
 #include <vector>
 #include <ctime>
-#include <cmath>
 #include <algorithm>
 
 void bubblesort(std::vector<int>& vec, int m)
@@ -35,24 +34,28 @@ void selectionsort(std::vector<int>& vec, int m)
 
 void quicksort(std::vector<int>& vec, int m)
 {
-    int i, j, temp, edge, n;
+    int i, temp, edge, n;
     for (n = 0; n < m; n++)
     {
-        edge = n + 1;
-        for (i = n + 1; i < m; i++)
-            if (vec[i] < vec[n])
+        do
+        {
+            edge = n + 1;
+            for (i = n + 1; i < m; i++)
+                if (vec[i] < vec[n])
+                {
+                    temp = vec[edge];
+                    vec[edge] = vec[i];
+                    vec[i] = temp;
+                    edge++;
+                }
+            for (i = n; i < edge - 1; i++)
             {
                 temp = vec[i];
-                vec[i] = vec[edge];
-                vec[edge] = temp;
-                edge++;
+                vec[i] = vec[i + 1];
+                vec[i + 1] = temp;
             }
-        for (i = n; i < edge - 1; i++)
-        {
-            temp = vec[i];
-            vec[i] = vec[i + 1];
-            vec[i + 1] = temp;
         }
+        while (edge > (n + 1));
     }
 }
 
@@ -65,12 +68,29 @@ int main()
     std::vector<int> vec;
     for (i = 0; i < m; i++)
         vec.push_back(rand() % 201 - 100);
+    std::cout << "Original:  ";
     for (i = 0; i < m; i++)
         std::cout << vec[i] << " ";
     std::cout << std::endl;
-    quicksort(vec, m);
+    std::vector<int> vecbuf;
+    vecbuf = vec;
+    bubblesort(vec, m);
+    std::cout << "Bubble:    ";
     for (i = 0; i < m; i++)
         std::cout << vec[i] << " ";
+    std::cout << std::endl;
+    vec = vecbuf;
+    selectionsort(vec, m);
+    std::cout << "Selection: ";
+    for (i = 0; i < m; i++)
+        std::cout << vec[i] << " ";
+    std::cout << std::endl;
+    vec = vecbuf;
+    quicksort(vec, m);
+    std::cout << "Quick:     ";
+    for (i = 0; i < m; i++)
+        std::cout << vec[i] << " ";
+    std::cout << std::endl;
 
     return 0;
 }
